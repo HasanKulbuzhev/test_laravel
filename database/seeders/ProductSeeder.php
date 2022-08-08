@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
     public function run()
     {
         CarModel::query()->get()->each(function (CarModel $carModel){
-            Product::factory()->count(2)->for($carModel)->create();
+            Product::factory()->count(2)->for($carModel, 'model')->create();
         });
     }
 }
