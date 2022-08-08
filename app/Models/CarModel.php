@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class ProductModel
@@ -16,6 +19,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $engine_type
  * @property int $drive_type
  * @property string $brand_id
+ *
+ * @property Collection|Product[] $products
+ * @property Brand $brand
  *
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -45,5 +51,17 @@ class CarModel extends Model
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class,'model_id');
+    }
+
+    public function scopeWhereIsNotNull(Builder $builder, string $column, $value)
+    {
+        if (! is_null($value)) {
+            $builder->where($column, $value);
+        }
     }
 }
