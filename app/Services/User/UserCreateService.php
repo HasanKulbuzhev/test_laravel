@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Services\User;
+
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\User;
+use App\Services\BaseService;
+
+class UserCreateService extends BaseService
+{
+    private $request;
+    private $user;
+
+    /**
+     * UserCreateService constructor.
+     * @param User $user
+     * @param RegisterRequest $request
+     */
+    public function __construct(User $user, RegisterRequest $request)
+    {
+        $this->request = $request;
+        $this->user = $user;
+    }
+
+    public function run(): bool
+    {
+        $this->user->username = $this->request->username;
+        $this->user->email = $this->request->email;
+        $this->user->password = bcrypt($this->request->password);
+
+        return $this->user->save();
+    }
+}
