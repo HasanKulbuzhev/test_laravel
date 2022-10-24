@@ -3,13 +3,13 @@
 namespace App\Services\User;
 
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Interfaces\BaseServiceInterface;
 use App\Models\User;
-use App\Services\BaseService;
 
-class UserCreateService extends BaseService
+class UserCreateService implements BaseServiceInterface
 {
-    private $request;
-    private $user;
+    private RegisterRequest $request;
+    private User $user;
 
     /**
      * UserCreateService constructor.
