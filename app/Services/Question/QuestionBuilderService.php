@@ -12,7 +12,8 @@ class QuestionBuilderService extends BuilderService implements BaseServiceInterf
     protected array $filters = [
         'title' => 'title',
         'worker_id' => 'worker',
-        'project_id' => 'project'
+        'project_id' => 'project',
+        'status' => 'status'
     ];
 
     public function run(): Builder
@@ -38,5 +39,10 @@ class QuestionBuilderService extends BuilderService implements BaseServiceInterf
     {
         /** @see Question::scopeOfProject() */
         return $this->builder->ofProject($value);
+    }
+
+    protected function status(int $value)
+    {
+        return $this->builder->where('status', $value);
     }
 }

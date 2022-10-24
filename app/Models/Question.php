@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Question\Status;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,7 +38,8 @@ class Question extends Model
         'message',
         'email',
         'comment',
-        'status'
+        'status',
+        'worker_id'
     ];
 
     public function project(): BelongsTo
@@ -58,5 +60,10 @@ class Question extends Model
     public function scopeOfProject(Builder $builder, int $value): Builder
     {
         return $builder->where('project_id', $value);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === Status::ACTIVE;
     }
 }

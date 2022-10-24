@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Question\QuestionController;
+use App\Http\Middleware\SupportRoleMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('question', QuestionController::class);
+    Route::middleware([SupportRoleMiddleware::class])
+        ->post('/question/{question}/answer', [QuestionController::class, 'answer'])
+        ->name('question.answer');
 });

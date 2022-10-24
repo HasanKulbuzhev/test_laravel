@@ -29,6 +29,7 @@ class QuestionResource extends JsonResource
                 'status-code' => Status::getKey($this->status)
             ],
             'message' => $this->message,
+            'comment' => $this->comment,
             'project_id' => $this->project_id,
             'worker_id' => $this->worker_id,
         ];
