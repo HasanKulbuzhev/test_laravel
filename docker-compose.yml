@@ -1,0 +1,77 @@
+version: '2'
+services:
+
+    #PHP Service
+    app:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        image: digitalocean.com/php
+        container_name: test_laravel_app
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - app-network
+
+    #Nginx Service
+    webserver:
+        image: nginx:alpine
+        container_name: test_laravel_webserver
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8000:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - app-network
+
+    #Postgress Service
+    db_pg:
+        image: postgres:latest
+        container_name: test_laravel_db_pg
+        ports:
+            - "54329:5432"
+        environment:
+            - POSTGRES_USER=laravel
+            - POSTGRES_PASSWORD=laravel
+            - POSTGRES_DB=laravel
+        networks:
+            - app-network
+
+    #MySQL Service
+    db:
+        image: mysql:5.7.22
+        container_name: test_laravel_db
+        restart: unless-stopped
+        tty: true
+        volumes:
+            - dbdata:/var/lib/mysql
+            - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+        ports:
+            - "33069:3306"
+        environment:
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: laravel
+            MYSQL_USER_PASSWORD: laravel
+            MYSQL_ROOT_PASSWORD: laravel
+        networks:
+            - app-network
+
+#Docker Networks
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    dbdata:
+        driver: local
