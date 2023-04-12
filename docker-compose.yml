@@ -50,7 +50,7 @@ services:
 
     #MySQL Service
     db:
-        image: mysql:5.7.22
+        image: bitnami/mysql:8.0
         container_name: test_laravel_db
         restart: unless-stopped
         tty: true
@@ -62,7 +62,7 @@ services:
         environment:
             MYSQL_DATABASE: laravel
             MYSQL_USER: laravel
-            MYSQL_USER_PASSWORD: laravel
+            MYSQL_PASSWORD: laravel
             MYSQL_ROOT_PASSWORD: laravel
         networks:
             - app-network
