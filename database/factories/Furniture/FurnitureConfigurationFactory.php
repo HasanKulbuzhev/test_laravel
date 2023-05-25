@@ -15,6 +15,7 @@ class FurnitureConfigurationFactory extends Factory
     {
         return [
             'name' => $this->faker->colorName,
+            'slug' => $this->faker->slug,
             'type' => FurnitureConfigurationType::COLOR->value,
         ];
     }

@@ -26,6 +26,8 @@ class FurnitureConfiguration extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function furniture(): BelongsToMany
     {
         return $this->belongsToMany(Furniture::class, 'configuration_furniture_assignment', 'configuration_id', 'furniture_id');
