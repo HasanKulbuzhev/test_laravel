@@ -2,13 +2,13 @@
 
 namespace App\Enums;
 
-enum RoomType
+enum RoomType: int
 {
-    const HALLWAY = 0;
-    const KITCHEN = 1;
-    const LIVING = 2;
-    const BATH = 3;
-    const BEDROOM = 4;
+    case HALLWAY = 0;
+    case KITCHEN = 1;
+    case LIVING = 2;
+    case BATH = 3;
+    case BEDROOM = 4;
 
     public static function values(): array
     {

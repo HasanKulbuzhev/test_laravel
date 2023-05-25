@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-class FurnitureConfigurationType
+enum FurnitureConfigurationType: string
 {
-    const COLOR = 'color';
+    case COLOR = 'color';
 }

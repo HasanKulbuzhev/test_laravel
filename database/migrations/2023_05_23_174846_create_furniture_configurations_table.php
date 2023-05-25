@@ -16,7 +16,7 @@ class CreateFurnitureConfigurationsTable extends Migration
     {
         Schema::create('furniture_configurations', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->default(FurnitureConfigurationType::COLOR);
+            $table->string('type');
             $table->string('name');
             $table->string('slug');
         });

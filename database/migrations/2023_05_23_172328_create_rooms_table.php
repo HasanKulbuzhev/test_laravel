@@ -16,7 +16,7 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('type')->default(RoomType::HALLWAY);
+            $table->smallInteger('type')->default(RoomType::HALLWAY->value);
             $table->foreignId('apartment_id')->constrained()->cascadeOnDelete();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Models\Furniture;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Furniture\FurnitureConfiguration
@@ -24,4 +25,9 @@ use Illuminate\Database\Eloquent\Model;
 class FurnitureConfiguration extends Model
 {
     use HasFactory;
+
+    public function furniture(): BelongsToMany
+    {
+        return $this->belongsToMany(Furniture::class, 'configuration_furniture_assignment', 'configuration_id', 'furniture_id');
+    }
 }

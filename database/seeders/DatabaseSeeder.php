@@ -2,6 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\House\House;
+use App\Models\Room\Room;
+use Database\Seeders\Apartment\ApartmentSeeder;
+use Database\Seeders\Furniture\FurnitureConfigurationSeed;
+use Database\Seeders\Furniture\FurnitureSeed;
+use Database\Seeders\House\HouseSeed;
+use Database\Seeders\Room\RoomSeed;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +20,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            HouseSeed::class,
+            ApartmentSeeder::class,
+            RoomSeed::class,
+            FurnitureSeed::class,
+            FurnitureConfigurationSeed::class,
+        ]);
     }
 }

@@ -2,8 +2,11 @@
 
 namespace App\Models\Furniture;
 
+use App\Models\Room\Room;
+use App\Models\Room\RoomFurniture;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Furniture\Furniture
@@ -26,4 +29,14 @@ use Illuminate\Database\Eloquent\Model;
 class Furniture extends Model
 {
     use HasFactory;
+
+    public function rooms(): BelongsToMany
+    {
+        return $this->belongsToMany(Room::class, RoomFurniture::class, 'furniture_id', 'room_id');
+    }
+
+    public function configurations(): BelongsToMany
+    {
+        return $this->belongsToMany(FurnitureConfiguration::class, 'configuration_furniture_assignment', 'furniture_id', 'configuration_id');
+    }
 }
