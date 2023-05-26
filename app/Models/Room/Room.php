@@ -2,9 +2,11 @@
 
 namespace App\Models\Room;
 
+use App\Models\Apartment\Apartment;
 use App\Models\Furniture\Furniture;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -30,5 +32,10 @@ class Room extends Model
     public function furnitures(): BelongsToMany
     {
         return $this->belongsToMany(Furniture::class, RoomFurniture::class, 'room_id', 'furniture_id');
+    }
+
+    public function apartment(): BelongsTo
+    {
+        return $this->belongsTo(Apartment::class, 'apartment_id');
     }
 }

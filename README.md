@@ -1,63 +1,26 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Тестовое для компании "Наше Золото"
+Task
+```angular2html
+ТЗ:
+Нужно создать микросервис, отображающий историю о том, какая мебель была в какой квартире и как была расположена. 
+Должна выводиться информация о том, в какой квартире в какой комнате какая мебель имеется на определённую дату, список всей мебели, когда либо бывавшей в квартире, и справочная информация - кол-во комнат в квартире, тип комнаты(кухня, ванная, прихожая, гостиная). В одной комнате может находиться несколько одинаковых элементов  мебели(например, стулья), при этом, в разных комнатах столы и стулья могут быть разные(красный стул, зеленый стул, железный стул, деревянный стул относятся к типу стул).
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Не забыть наполнить тестовыми данными бд.
 
-## About Laravel
+Реализовать контроллеры, которые по API отдают информацию об имеющейся мебели, с фильтрами по квартире, комнате, дате и времени.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+В идеале:
+1. Создать страничку комнаты с селектором даты и времени, в которой будет список мебели, на указанную дату имеющейся в ней, 
+2. Создать страничку квартиры также с селектором даты и времени и списком мебели на текущий момент имеющейся в ней
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+т.е., например: 
+1. Допустим, что 15.10.2021 12:55 в квартиру привезли новый деревянный стол, до этого там обедали на пластиковом. 
+Если указать на страничке квартиры дату и время 15.10.2021 15:00 - то в квартире в списке мебели будет и пластиковый кухонный стол числиться и деревянный, если указать дату и время 15.10.2021 12:00 - то только пластиковый,
+если 17.00 - то только деревянный, т.к. пластиковый выкинули в 16.32
+2. Далее предпложим, что15.10.2021 в 14.27 пластиковый унесли в коридор и принесли на кухню деревянный. 
+Если указать на страничке комнаты(кухни) дату и время 15.10.2021 15:00, то в списке ее мебели будет деревянный стол, если 13.00 - то пластиковый
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Важно: все выборки данных должны быть выполнены средствами ORM
+```
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Сделал всё кроме селектеров и тестов. Из-за загруженности. Протестить можно с помощью инсомниа.
