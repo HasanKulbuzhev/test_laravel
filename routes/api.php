@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Apartment\ApartmentController;
+use App\Http\Controllers\Furniture\FurnitureController;
+use App\Http\Controllers\Room\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/furnitures', [FurnitureController::class, 'index']);
+Route::get('/rooms', [RoomController::class, 'index']);
+Route::get('/rooms/{room}', [RoomController::class, 'show']);
+Route::get('/apartments', [ApartmentController::class, 'index']);
+Route::get('/apartments/{apartments}', [ApartmentController::class, 'show']);
