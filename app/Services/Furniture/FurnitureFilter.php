@@ -11,16 +11,19 @@ class FurnitureFilter extends BaseFilter
 {
     protected $model = Furniture::class;
 
-    protected array $filters = [];
+    protected array $filters = [
+        'from_date' => 'fromDate',
+        'to_date' => 'toDate',
+    ];
 
-    public function fromData(Builder $builder, string $fromDate): Builder
+    public function fromDate(Builder $builder, string $fromDate): Builder
     {
         return $this->builder->whereHas('rooms', function (Builder $builder) use ($fromDate) {
-            $builder->where('from_date', '>', new Carbon($fromDate));
+            $builder->where('from_date', '<', new Carbon($fromDate));
         });
     }
 
-    public function toData(Builder $builder, string $toDate): Builder
+    public function toDate(Builder $builder, string $toDate): Builder
     {
         return $this->builder->whereHas('rooms', function (Builder $builder) use ($toDate) {
             $builder->where('to_date', '>', new Carbon($toDate));
