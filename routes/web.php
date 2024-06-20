@@ -19,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 //});
 Route::get('/', [ProxyController::class, 'index']);
 Route::get('/test', [ProxyController::class, 'test']);
+Route::get('/proxies/{groupId}', [ProxyController::class, 'proxiesToGroup'])->name('proxies.index');
 Route::post('/proxies/check', [ProxyController::class, 'test'])->name('proxies.check');

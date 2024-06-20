@@ -10,6 +10,7 @@ use IP2LocationIO\IPGeolocation;
 
 class ProxyService
 {
+    /** Решил создавать модельки, чтобы была возможность реализовать статус бар и чтобы структуризировать поля */
     public function createProxies(int $groupId, string $proxies)
     {
         $proxies = explode("\n", $proxies); // Get each proxy
@@ -27,11 +28,12 @@ class ProxyService
         return Proxy::query()->insert($proxyData);
     }
 
-    public function checkProxies($proxies)
+    public function checkProxies($proxies): void
     {
         $multiCurl = new MultiCurl();
 
         $multiCurl->success(function($instance) {
+            /** Тут у нас сохраняется модель со всеми полями в случае успешного соединения */
             Proxy::query()->where('id', $instance->proxy_id)->first()->update([
                 'status' => ProxyStatusEnum::SUCCESS->value,
                 'type' => $instance->proxy_type,
