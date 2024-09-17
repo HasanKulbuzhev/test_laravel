@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Transactions\CreateTransactionRequest;
-use App\Http\Requests\Transactions\Transactions\IndexTransactionRequest;
+use App\Http\Requests\Transactions\IndexTransactionRequest;
 use App\Http\Resources\TransactionResource;
 use App\Models\Product;
 use App\Models\Transaction;
@@ -22,8 +22,8 @@ class TransactionController extends Controller
 
     public function index(IndexTransactionRequest $request)
     {
-        $builder = $this->transactionService->index();
-        return TransactionResource::collection(Transaction::query()->paginate());
+        $builder = $this->transactionService->index($request->validated());
+        return TransactionResource::collection($builder->paginate());
     }
 
     public function create(CreateTransactionRequest $request)

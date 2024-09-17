@@ -34,8 +34,8 @@ class TransactionService
         return $transaction;
     }
 
-    public function index(array $filters)
+    public function index(array $filters): Builder
     {
-        TransactionFilter::run(Transaction::query(), $filters);
+        return (new TransactionFilter)->run(Transaction::query(), $filters);
     }
 }

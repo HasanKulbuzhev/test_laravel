@@ -2,6 +2,7 @@
 
 namespace App\Services\Filters;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 class TransactionFilter extends BaseFilters
@@ -27,8 +28,15 @@ class TransactionFilter extends BaseFilters
         return $this->builder->where('type', $type);
     }
 
-    public function beginDate(int $type): Builder
+    public function beginDate(string $date): Builder
     {
-        return $this->builder->where('type', $type);
+        $beginDate = Carbon::createFromFormat('Y-m-d h:i', $date);
+        return $this->builder->whereDate('created_at', '>=', $beginDate);
+    }
+
+    public function endDate(string $date): Builder
+    {
+        $endDate = Carbon::createFromFormat('Y-m-d h:i', $date);
+        return $this->builder->whereDate('created_at', '<=', $endDate);
     }
 }

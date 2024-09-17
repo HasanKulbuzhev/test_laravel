@@ -22,4 +22,5 @@ Route::group([
     'as' => 'transactions.'
 ], function (Router $route) {
     $route->post('/', [TransactionController::class, 'create']);
+    $route->get('/', [TransactionController::class, 'index']);
 });
