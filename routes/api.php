@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group([
+    'prefix' => 'transactions',
+    'as' => 'transactions.'
+], function (Router $route) {
+    $route->post('/', [TransactionController::class, 'create']);
 });
