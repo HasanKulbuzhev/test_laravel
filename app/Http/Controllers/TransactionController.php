@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Transactions\CreateTransactionRequest;
 use App\Http\Requests\Transactions\IndexTransactionRequest;
+use App\Http\Requests\Transactions\InventoryTransactionRequest;
 use App\Http\Resources\TransactionResource;
 use App\Models\Product;
 use App\Models\Transaction;
@@ -31,5 +32,12 @@ class TransactionController extends Controller
         $transaction = $this->transactionService->create($request->validated());
 
         return new TransactionResource($transaction);
+    }
+
+    public function inventories(InventoryTransactionRequest $request)
+    {
+        return TransactionResource::collection(
+            $this->transactionService->getInventories($request->getBeginDate(), $request->getEndDate())->paginate()
+        );
     }
 }

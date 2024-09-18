@@ -23,4 +23,5 @@ Route::group([
 ], function (Router $route) {
     $route->post('/', [TransactionController::class, 'create']);
     $route->get('/', [TransactionController::class, 'index']);
+    $route->get('/inventories', [TransactionController::class, 'inventories']);
 });
