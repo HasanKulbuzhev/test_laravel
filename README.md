@@ -1,63 +1,35 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Это тестовое задания для компании 
+[Основной контроллер здесь](https://github.com/HasanKulbuzhev/test_laravel/blob/gulash/app/Http/Controllers/TransactionController.php)
+Из сделанного:
+- Создал модель, контроллер, валидацию, сервисы для транзакций (документов). 
+- Отдельная мини моделька для товаров.
+- Авторский мини класс фильтрации (использую везде его доделанную версию для фильтрации и поиска, возможно давно пора выгрузить его в отдельный пакет )
+- Постарался написать код минималистично. Как впринципе я пишу всегда. Транзакции не сделал, т.к. не увидел необходимости в этом для данной задачи.
+К сожалению не успел доделать последний скрипт, для добавления средней цены. Также у меня в ходе выполнения возникли вопросы, но т.к. делал в час ночи, они остались в моей голове. Думал также о том, чтобы создать отдельную таблицу для историй, учитывая нагрузку на таблицу.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## Текст задания
+Необходимо разработать прототип системы движения товаров на складе.
+Система осуществляет контроль поступления и ухода товаров со склада, а также контроль расчётных остатков товаров. Изменение остатков происходит путём внесения «документов» по каждому товару. Существует три типа документов:
+	«приход» - увеличивает остаток товара
+	«расход» - уменьшает остаток
+	«инвентаризация» - устанавливает конкретное значение остатка товаров.
+При внесении документа «инвентаризация» мы должны дополнительно посчитать ошибку инвентаризации – разницу между расчётным остатком на момент внесения инвентаризации и значением в инвентаризации.
+Пример движения по одному товару
+Тип	Значение	Остаток	Ошибка инв-ции
+Приход	3	3
+Расход	1	2
+Инвентаризация	1	1	-1
+Приход	3	4
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+	Каждый документ может содержать несколько товаров
+	Каждый документ содержит метку времени. Возможно внесение документов не в хронологическом порядке
+	Документ «приход» также содержит стоимость за единицу товара
+	Система предполагает большой объём и высокую нагрузку на чтение\запись
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Спроектируйте и реализуйте REST-API, которое будет предоставлять следующие возможности:
+	Внесение документов движения товара. Справочник товаров не требуется, товары идентифицируются просто по ID
+	Получение истории движения по всем товарам, включая расчётные остатки и ошибки инвентаризации
+	Просмотр результатов инвентаризации за указанную дату. Для указанной даты нужно получить все инвентаризации и для каждого товара получить: остаток по инвентаризации (в штуках и в рублях), ошибку инвентаризации (в штуках и в рублях)
+o	Если за дату по товару было несколько инвентаризаций, нужно взять последнюю по времени
+o	Для получения остатка и отклонения в рублях нужно посчитать себестоимость товара. Для этого нужно почитать средневзвешенную стоимость всех приходов по данному товару за последние 20 дней, предшествующих инвентаризации. Если за 20 дней не было ни единого прихода, нужно взять стоимость из последнего прихода по данному товару.
